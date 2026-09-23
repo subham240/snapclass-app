@@ -11,12 +11,17 @@ def style_background_home():
             .stApp div[data-testid="stColumn"] {
                 background-color: #E0E3FF !important;
                 padding: 2.5rem !important;
-                border-radius: 2.5rem !important;
+                border-radius: 5rem !important;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+                text-align: center !important;
             }
             .stApp div[data-testid="stColumn"] h1,
-            .stApp div[data-testid="stColumn"] h2,
-            .stApp div[data-testid="stColumn"] h3,
+            .stApp div[data-testid="stColumn"] h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #0F172A !important;
+                font-size: 2rem !important;
+                line-height: 1.1 !important;
+            }
             .stApp div[data-testid="stColumn"] p {
                 color: #0F172A !important;
                 font-weight: 700 !important;
@@ -34,7 +39,13 @@ def style_background_dashboard():
             }
 
             /* Universal High-Contrast Text for Dashboard */
-            .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6 {
+            .stApp h1, .stApp h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #0F172A !important;
+                line-height: 1.1 !important;
+            }
+
+            .stApp h3, .stApp h4, .stApp h5, .stApp h6 {
                 color: #0F172A !important;
                 font-weight: 800 !important;
                 letter-spacing: -0.5px !important;
@@ -56,14 +67,18 @@ def style_background_dashboard():
             /* Container cards (Bordered containers like Registration) */
             div[data-testid="stVerticalBlockBorderWrapper"] {
                 background-color: #FFFFFF !important;
-                border-radius: 1.5rem !important;
+                border-radius: 2rem !important;
                 padding: 1.8rem !important;
                 border: 1.5px solid #CBD5E1 !important;
                 box-shadow: 0 10px 30px rgba(88, 101, 242, 0.08) !important;
             }
 
             div[data-testid="stVerticalBlockBorderWrapper"] h1,
-            div[data-testid="stVerticalBlockBorderWrapper"] h2,
+            div[data-testid="stVerticalBlockBorderWrapper"] h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #0F172A !important;
+            }
+
             div[data-testid="stVerticalBlockBorderWrapper"] h3,
             div[data-testid="stVerticalBlockBorderWrapper"] h4,
             div[data-testid="stVerticalBlockBorderWrapper"] p,
@@ -77,7 +92,7 @@ def style_background_dashboard():
                 background-color: #F8FAFC !important;
                 color: #0F172A !important;
                 border: 2px solid #CBD5E1 !important;
-                border-radius: 0.8rem !important;
+                border-radius: 1rem !important;
                 font-size: 1rem !important;
                 font-weight: 600 !important;
                 padding: 10px 16px !important;
@@ -94,7 +109,7 @@ def style_background_dashboard():
                 background-color: #FFFFFF !important;
                 color: #0F172A !important;
                 border: 2px solid #CBD5E1 !important;
-                border-radius: 0.8rem !important;
+                border-radius: 1rem !important;
             }
 
             /* Informational / Alert Boxes */
@@ -114,6 +129,7 @@ def style_background_dashboard():
 def style_base_layout():
     st.markdown("""
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
             /* Hide Streamlit Top Bar & Footers */
@@ -132,17 +148,17 @@ def style_base_layout():
             }
 
             h1 {
-                font-size: 2.6rem !important;
-                font-weight: 800 !important;
-                line-height: 1.2 !important;
-                margin-bottom: 0.5rem !important;
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 3.5rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 0.2rem !important;
             }
 
             h2 {
-                font-size: 1.9rem !important;
-                font-weight: 700 !important;
-                line-height: 1.25 !important;
-                margin-bottom: 0.5rem !important;
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 2rem !important;
+                line-height: 1 !important;
+                margin-bottom: 0.2rem !important;
             }
 
             h3 {
@@ -156,9 +172,9 @@ def style_base_layout():
                 line-height: 1.5 !important;
             }
 
-            /* High visibility buttons */
+            /* Iconic rounded buttons */
             button {
-                border-radius: 1.2rem !important;
+                border-radius: 1.5rem !important;
                 background-color: #5865F2 !important;
                 color: #FFFFFF !important;
                 font-weight: 700 !important;
@@ -179,7 +195,7 @@ def style_base_layout():
             }
 
             button:hover {
-                transform: scale(1.03) !important;
+                transform: scale(1.04) !important;
                 box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
             }
         </style>
