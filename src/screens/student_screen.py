@@ -63,26 +63,28 @@ def student_dashboard():
     for i, sub_node in enumerate(subjects):
         sub = sub_node['subjects']
         sid = sub['subject_id']
+        sub_name = sub.get('name', 'Course')
 
+        stats = stats_map.get(sid, {"total": 0, "attended": 0})
 
-        stats = stats_map.get(sid,{"total":0, "attended": 0} )
-        def unenroll_button():
-                if st.button("Unenroll from tihs course", type='tertiary', width='stretch', icon=':material/delete_forever:'):
-                    unenroll_student_to_subject(student_id, sid)
-                    st.toast(f'Unenrolled from {sub['name']} successfully!')
+        def make_unenroll_btn(curr_sid, curr_name):
+            def unenroll_button():
+                if st.button("Unenroll from this course", key=f"unenroll_{curr_sid}", type='tertiary', width='stretch', icon=':material/delete_forever:'):
+                    unenroll_student_to_subject(student_id, curr_sid)
+                    st.toast(f"Unenrolled from {curr_name} successfully!")
                     st.rerun()
+            return unenroll_button
 
         with cols[i % 2]:
-
             subject_card(
-                name = sub['name'],
-                code =sub['subject_code'],
-                section = sub['section'],
-                stats = [
+                name=sub['name'],
+                code=sub['subject_code'],
+                section=sub['section'],
+                stats=[
                     ('📅', 'Total', stats['total']),
                     ('✅', 'Attended', stats['attended']),
                 ],
-                footer_callback=unenroll_button
+                footer_callback=make_unenroll_btn(sid, sub_name)
             )
     footer_dashboard()
 
@@ -133,7 +135,7 @@ def student_screen():
                         st.session_state.is_logged_in = True
                         st.session_state.user_role = 'student'
                         st.session_state.student_data = student
-                        st.toast(f'Welcome Back {student['name']}')
+                        st.toast(f"Welcome Back {student['name']}")
                         time.sleep(1)
                         st.rerun()
                 else:
@@ -167,7 +169,18 @@ def student_screen():
                             if audio_data:
                                 voice_emb = get_voice_embedding(audio_data.read())
 
-                            response_data = create_student(new_name, face_embedding=face_emb, voice_embedding=voice_emb)
+                            try:
+                                response_data = create_student(new_name, face_embedding=face_emb, voice_embedding=voice_emb)
+                            except Exception as e:
+                                response_data = None
+                                if "row-level security" in str(e).lower() or "42501" in str(e):
+                                    st.error(
+                                        "🔒 **Supabase Row-Level Security (RLS) Policy Error**: "
+                                        "Supabase blocked the insert because RLS is enabled. "
+                                        "Please open your Supabase SQL Editor and run the script in `fix_rls.sql` (or paste your `service_role` key into `.env`)."
+                                    )
+                                else:
+                                    st.error(f"Failed to create profile: {str(e)}")
 
                             if response_data:
                                 train_classifier()
