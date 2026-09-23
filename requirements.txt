@@ -22,5 +22,4 @@ pillow
 librosa
 torch
 resemblyzer
-webrtcvad-wheels; sys_platform == 'win32'
-webrtcvad; sys_platform != 'win32'
+webrtcvad-wheels
